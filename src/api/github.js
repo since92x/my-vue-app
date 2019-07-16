@@ -7,8 +7,18 @@ const DEFAULT_PARAMS = {
   client_secret: github.CLIENT_SECRET 
 }
 
-export const getArticles = (page = 1, per_page = 10) => {
-  const params = { creator: github.OWNER, state: 'open', filter: 'created', page, per_page }
+export const getLabels = () => {
+  return request({
+    url: `${githubBaseUrl}/repos/${github.OWNER}/${github.REPO}/labels`,
+    method: 'get',
+    params: {
+      ...DEFAULT_PARAMS,
+    }
+  })
+}
+
+export const getArticles = ({ page = 1, per_page = 10, labels = null }) => {
+  const params = { creator: github.OWNER, state: 'open', filter: 'created', page, per_page, labels }
   return request({
     url: `${githubBaseUrl}/repos/${github.OWNER}/${github.REPO}/issues`,
     method: 'get',

@@ -4,6 +4,23 @@
       <div class="calendar">
         <Calendar />
       </div>
+      <ul class="tags">
+        <li class="tag-row" :class="{selected: !labels.filter(i => i.selected).length}" v-if="labels.length">
+          <div class="tag-cell" @click="handleTagUpdate('clear')" >
+            <span class="tag" style="background-color: #009688" v-text="'All'" />
+          </div>
+        </li>
+        <li
+          class="tag-row"
+          v-for="(label, index) in labels" :key="index"
+          :class="{selected: label.selected}"
+          @click="handleTagUpdate(label)"
+        >
+          <div class="tag-cell">
+            <span class="tag" :style="{'background-color': '#'+label.color}" v-text="label.name" />
+          </div>
+        </li>
+      </ul>
     </div>
     <transition-group name="fade" tag="ul" class="container">
       <li class="list" v-for="item in items" :key="item.number">
@@ -16,7 +33,7 @@
         <a class="access" v-text="'阅读全文'" @click="handleViewArticle(item.number)" />
       </li>
       <li key="more" class="more">
-        <a href="javascript:;" v-if="!hasLoadAll && items.length" v-text="'See more'" @click="loadMore"/>
+        <a href="javascript:;" v-if="!hasLoadAll && items.length && items.length===this.per_page" v-text="'See more'" @click="loadMore"/>
       </li>
     </transition-group>
   </div>
@@ -24,7 +41,7 @@
 
 <script>
 import Calendar from '@/components/calendar'
-import { getArticles } from '@/api/github'
+import { getLabels, getArticles } from '@/api/github'
 import { setTimeout } from 'timers';
 export default {
   name: 'Blog',
@@ -38,26 +55,50 @@ export default {
       per_page: 5,
       page: 1,
       hasLoadAll: false,
+      labels: [],
       items: []
     }
   },
-  watch: {
-    page: {
-      immediate: true,
-      handler: 'handlePageUpdate'
-    }
+  async created() {
+    await getLabels().then(res => {
+      this.labels = res
+    }).catch(err => {
+      console.debug(err)
+    })
+    this.handlePageUpdate()
   },
   methods: {
+    handleTagUpdate(tag) {
+      if (tag === 'clear') {
+        this.labels = this.labels.map(label => ({ ...label, selected: false}))
+      } else {
+        this.labels = this.labels.map(label => ({ ...label, selected: label.name === tag.name ? !label.selected : label.selected}))
+      }
+      this.hasLoadAll = false
+      this.page = 1
+      this.handlePageUpdate(true)
+    },
     loadMore() {
       this.page += 1
+      this.handlePageUpdate()
     },
-    handlePageUpdate() {
+    handlePageUpdate(clear = false) {
       if (this.hasLoadAll) return
-      if (this.page === 1) {
+      if (!this._isNotInit) {
         this.loading = true;
       }
-      getArticles(this.page, this.per_page).then(res => {
+      const labels = this.labels.filter(i => i.selected).map(i => i.name).join()
+      console.debug('labels: ', labels)
+      getArticles({ page: this.page, per_page: this.per_page, labels }).then(res => {
+      this._isNotInit = true
+        if (clear) {
+          this.items = res
+          return
+        }
         if (res.length) {
+          if (res.length < this.per_page) {
+            this.hasLoadAll = true
+          }
           this.items = [...this.items, ...res]
         } else {
           this.page -= 1
@@ -117,6 +158,45 @@ export default {
     margin-left: 5%;
     .calendar {
       text-align: center;
+    }
+    .tags {
+      user-select: none;
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+      border: 1px solid rgb(234, 236, 239);
+      &::before {
+        content: 'TAG';
+        display: table-caption;
+        padding: 5px 10%;
+        line-height: 40px;
+        color: rgb(56, 183, 234);
+      }
+      .tag-row {
+        cursor: pointer;
+        list-style: none;
+        display: table-row;
+        .tag-cell{
+          display: table-cell;
+          border-top: 1px solid rgb(234, 236, 239);
+          .tag {
+            display: inline-block;
+            margin: 5px 10%;
+            padding: 8px;
+            border-radius: 8px;
+          }
+        }
+      }
+      .selected {
+        & .tag-cell::after {
+          content: '\2714';
+          margin: 0 8px;
+          display: inline-block;;
+          vertical-align: middle;
+          color: #4DCB6D;
+          font-size: 2em;
+        }
+      }
     }
     @media (max-width: 992px) {
       display: block;
