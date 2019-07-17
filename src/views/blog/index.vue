@@ -4,7 +4,7 @@
       <div class="calendar">
         <Calendar />
       </div>
-      <ul class="tags">
+      <ul class="tags" caption="tag">
         <li class="tag-row" :class="{selected: !labels.filter(i => i.selected).length}" v-if="labels.length">
           <div class="tag-cell" @click="handleTagUpdate('clear')" >
             <span class="tag" style="background-color: #009688" v-text="'All'" />
@@ -164,9 +164,13 @@ export default {
       display: table;
       table-layout: fixed;
       width: 100%;
+      max-width: 500px;
+      min-width: 300px;
+      margin: 0 auto;
       border: 1px solid rgb(234, 236, 239);
       &::before {
-        content: 'TAG';
+        content: attr(caption);
+        text-transform: uppercase;
         display: table-caption;
         padding: 5px 10%;
         line-height: 40px;

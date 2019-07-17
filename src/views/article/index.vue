@@ -1,6 +1,6 @@
 <template>
-  <div class="article-root" v-if="detail">
-    <div class="article-wrapper">
+  <div class="article-root">
+    <div class="article-wrapper" v-if="detail">
       <div class="article-container" :class="{'fill-container': !needTOC}">
         <header class="article-head"  >
           <label class="article-title" v-text="detail.title" />
@@ -9,12 +9,14 @@
         </header>
         <article class="markdown-body" v-html="detail.body_html" />
       </div>
-      <div class="toc-box" v-if="needTOC">
+      <div class="toc-box" :style="{zIndex: shouldTocShow?'auto':'-1'}" v-if="needTOC">
         <div class="markdown-toc toc" />
       </div>
     </div>
-    <Comments class="article-comments" :number="$route.params.id" v-if="detail.body_html" />
-    <Cat v-smooth-scroll class="article-bottom" />
+    <div ref="comments" class="comments-container">
+      <Comments class="article-comments" :number="$route.params.id" v-if="detail && detail.body_html" />
+    </div>
+    <Cat class="article-bottom" />
   </div>  
 </template>
 
@@ -33,6 +35,7 @@ export default {
   },
   data () {
     return {
+      shouldTocShow: true,
       needTOC: false,
       detail: null
     }
@@ -56,8 +59,15 @@ export default {
       headingSelector: "h1, h2, h3"
     });
   },
+  mounted () {
+    this.observer = new IntersectionObserver(([entry]) => {
+      this.shouldTocShow = !entry.isIntersecting // TODO: improve
+    });
+    this.observer.observe(this.$refs.comments)
+  },
   beforeDestroy () {
     tocbot.destroy()
+    this.observer.disconnect()
   },
   methods: {
     generateHeadingIds () {
@@ -127,6 +137,7 @@ export default {
       width: 100%;
     }
     .toc-box {
+      position: relative;
       width: 30%;
       @media screen and (max-width: 575.98px) {
         display: none;
@@ -137,6 +148,7 @@ export default {
       .markdown-toc {
         position: fixed;
         top: 5rem;
+        z-index: 999;
       }
     }
   }
