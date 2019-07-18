@@ -16,14 +16,15 @@
     <div ref="comments" class="comments-container">
       <Comments class="article-comments" :number="$route.params.id" v-if="detail && detail.body_html" />
     </div>
-    <Cat class="article-bottom" />
   </div>  
 </template>
 
 <script>
 import tocbot from 'tocbot'
 import Comments from '@/components/comments'
-import Cat from '@/components/painting/Cat'
+// util
+import { dateFormate } from '@/utils/core/date'
+// api
 import { getArticleByNumber } from '@/api/github'
 import '@/styles/article-theme.scss'
 
@@ -31,7 +32,9 @@ export default {
   name: 'Article',
   components: {
     Comments,
-    Cat
+  },
+  filters: {
+    formatDate: v => v && dateFormate({year: '2-digit'})(v)
   },
   data () {
     return {
@@ -62,6 +65,12 @@ export default {
   mounted () {
     this.observer = new IntersectionObserver(([entry]) => {
       this.shouldTocShow = !entry.isIntersecting // TODO: improve
+    }, {
+      root: null, // relative to document viewport 
+      rootMargin: '0px', // margin around root. Values are similar to css property. Unitless values not allowed
+      threshold: [0, 1.0], // visible amount of item shown in relation to root
+      // delay: 100, // set a minimum delay between notifications
+      // trackVisibility: true, // Track the actual visibility of the element
     });
     this.observer.observe(this.$refs.comments)
   },

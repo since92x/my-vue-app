@@ -33,7 +33,7 @@
         <a class="access" v-text="'阅读全文'" @click="handleViewArticle(item.number)" />
       </li>
       <li key="more" class="more">
-        <a href="javascript:;" v-if="!hasLoadAll && items.length && items.length===this.per_page" v-text="'See more'" @click="loadMore"/>
+        <a href="javascript:;" v-if="!hasLoadAll && items.length && items.length===per_page" v-text="'See more'" @click="loadMore"/>
       </li>
     </transition-group>
   </div>
@@ -72,7 +72,7 @@ export default {
       if (tag === 'clear') {
         this.labels = this.labels.map(label => ({ ...label, selected: false}))
       } else {
-        this.labels = this.labels.map(label => ({ ...label, selected: label.name === tag.name ? !label.selected : label.selected}))
+        this.labels = this.labels.map(label => ({ ...label, selected: label.name === tag.name ? !label.selected : false }))
       }
       this.hasLoadAll = false
       this.page = 1

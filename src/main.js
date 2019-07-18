@@ -2,18 +2,14 @@ import Vue from 'vue'
 import App from '@/App'
 import store from '@/store'
 import router from '@/router'
-// filter
-import { dateFormate } from '@/utils/core/date'
 // directive
 import SmoothScrollDirective from  '@/directives/smooth-scroll'
 import ClickoutsideDirective from '@/directives/click-away'
 import LoadingDirective from '@/directives/loading'
 // service
 import LoadingService from '@/services/loading'
+// style
 import '@/styles/base.scss'
-
-// filter
-Vue.filter('formatDate', v => v && dateFormate(v))
 
 // directive
 Vue.use(SmoothScrollDirective)
