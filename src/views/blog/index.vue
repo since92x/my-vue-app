@@ -33,7 +33,7 @@
         <a class="access" v-text="'阅读全文'" @click="handleViewArticle(item.number)" />
       </li>
       <li key="more" class="more">
-        <a href="javascript:;" v-if="!hasLoadAll && items.length && items.length===per_page" v-text="'See more'" @click="loadMore"/>
+        <a href="javascript:;" v-if="!hasLoadAll && items.length" v-text="'See more'" @click="loadMore"/>
       </li>
     </transition-group>
   </div>

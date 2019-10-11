@@ -115,6 +115,11 @@ export default {
         padding-bottom: 1rem;
         border-bottom: 1px solid rgb(224, 224, 224);
         margin-bottom: 1rem;
+        .article-time {
+          @media screen and (max-width: 575.98px) {
+            display: none;
+          }
+        }
       }
       .article-title {
         display: block;
