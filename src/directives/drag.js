@@ -1,4 +1,7 @@
 function handleDrag(el) {
+  if (window.getComputedStyle(el).getPropertyValue('position') !== 'fixed') {
+    el.style.position = 'fixed'
+  }
   const state = {
     isdragging: false,
     position: { x: '', y: '' },
