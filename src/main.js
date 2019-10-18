@@ -6,6 +6,7 @@ import router from '@/router'
 import SmoothScrollDirective from  '@/directives/smooth-scroll'
 import ClickoutsideDirective from '@/directives/click-away'
 import LoadingDirective from '@/directives/loading'
+import DragDirective from '@/directives/drag'
 // service
 import LoadingService from '@/services/loading'
 // style
@@ -15,6 +16,7 @@ import '@/styles/base.scss'
 Vue.use(SmoothScrollDirective)
 Vue.use(ClickoutsideDirective)
 Vue.use(LoadingDirective)
+Vue.use(DragDirective)
 
 // service
 Vue.prototype.$loading = LoadingService

@@ -88,7 +88,6 @@ export default {
         this.loading = true;
       }
       const labels = this.labels.filter(i => i.selected).map(i => i.name).join()
-      console.debug('labels: ', labels)
       getArticles({ page: this.page, per_page: this.per_page, labels }).then(res => {
       this._isNotInit = true
         if (clear) {
