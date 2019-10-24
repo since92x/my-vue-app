@@ -40,6 +40,7 @@ export default {
     margin: auto;
   }
   .content {
+    background: #fff;
     padding-top: 3rem;
     padding-bottom: 30px;
     @media screen and (max-width: 575.98px) {
