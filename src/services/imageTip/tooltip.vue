@@ -3,6 +3,7 @@
     ref="dialog"
     class="dialog"
     v-show="visible"
+    :src="src"
     :style="style"
     @mouseout="close"
   />
@@ -14,6 +15,7 @@ export default {
     return {
       useAlign: true,
       visible: false,
+      src: null,
       style: {
         top: 0,
         left: 0
@@ -21,15 +23,8 @@ export default {
     };
   },
   methods: {
-    cacheResource(e, payload) {
-      if (!e.target.dataset.src) {
-        e.target.setAttribute("data-src", payload);
-      }
-      this.$refs.dialog.setAttribute("src", e.target.dataset.src);
-    },
     open(e, payload) {
-      // 缓存url
-      this.cacheResource(e, payload);
+      this.src = payload
       // 智能定位
       this.$nextTick(() => {
         let { pageX: elPosLeft, pageY: elPosTop } = e;

@@ -27,8 +27,14 @@ export default {
   },
   methods: {
     show(e, index) {
-      const url = 'http://pic2.sc.chinaz.com/Files/pic/pic9/201910/zzpic20341_s.jpg'
-      this.$imageTip.show(e, url)
+      let url = e.target.dataset.src
+      if (url) {
+        this.$imageTip.show(e, url)
+      } else {
+        url = 'http://pic2.sc.chinaz.com/Files/pic/pic9/201910/zzpic20341_s.jpg'
+        e.target.setAttribute("data-src", url);
+        this.$imageTip.show(e, url)
+      }
     }
   }
 }
