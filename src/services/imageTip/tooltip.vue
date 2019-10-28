@@ -5,6 +5,7 @@
     v-show="visible"
     :src="src"
     :style="style"
+    @mouseover="visible=true"
     @mouseout="close"
   />
 </template>
@@ -58,19 +59,7 @@ export default {
         this.visible = true;
       });
     },
-    close(e) {
-      const { pageX, pageY } = e;
-      const {
-        left,
-        top,
-        width,
-        height
-      } = this.$refs.dialog.getBoundingClientRect();
-      const isInside =
-        pageX > left &&
-        pageX < left + width &&
-        (pageY > top && pageY < top + height);
-      if (isInside) return;
+    close() {
       this.visible = false;
     }
   }

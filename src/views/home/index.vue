@@ -26,7 +26,7 @@ export default {
   //  this.loading.close()
   },
   methods: {
-    show(e, index) {
+    show(e) {
       let url = e.target.dataset.src
       if (url) {
         this.$imageTip.show(e, url)
