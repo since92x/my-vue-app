@@ -1,6 +1,9 @@
 <template>
   <div class="comments-root">
-    <div class="comments" :id="selectorId" />
+    <div
+      :id="selectorId"
+      class="comments"
+    />
   </div>
 </template>
 

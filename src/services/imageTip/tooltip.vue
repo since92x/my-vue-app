@@ -1,13 +1,13 @@
 <template>
   <img
+    v-show="visible"
     ref="dialog"
     class="dialog"
-    v-show="visible"
     :src="src"
     :style="style"
     @mouseover="visible=true"
     @mouseout="close"
-  />
+  >
 </template>
 
 <script>
@@ -29,7 +29,7 @@ export default {
       // 智能定位
       this.$nextTick(() => {
         let { pageX: elPosLeft, pageY: elPosTop } = e;
-        const { width , height } = window.getComputedStyle(this.$refs.dialog)
+        const { width, height } = window.getComputedStyle(this.$refs.dialog)
         const [elWidth, elHeight] = [parseInt(width), parseInt(height)]
         if (this.useAlign) {
           const {

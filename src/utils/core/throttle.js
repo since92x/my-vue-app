@@ -1,7 +1,7 @@
 const throttle = (func, limit) => {
   let lastFunc, lastRan;
   return function() {
-    const context = this, args = arguments;
+    const context = this; const args = arguments;
     if (!lastRan) {
       func.apply(context, args);
       lastRan = Date.now();

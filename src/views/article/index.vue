@@ -1,22 +1,53 @@
 <template>
   <div class="article-root">
-    <div class="article-wrapper" v-if="detail">
-      <div class="article-container" :class="{'fill-container': !needTOC}">
-        <header class="article-head"  >
-          <label class="article-title" v-text="detail.title" />
-          <time :datetime="detail.created_at" class="article-time">{{ detail.created_at | formatDate}}</time>
-          <a class="article-author" :href="detail.user.html_url" v-text="detail.user.login" v-if="detail.user" />
+    <div
+      v-if="detail"
+      class="article-wrapper"
+    >
+      <div
+        class="article-container"
+        :class="{'fill-container': !needTOC}"
+      >
+        <header class="article-head">
+          <label
+            class="article-title"
+            v-text="detail.title"
+          />
+          <time
+            :datetime="detail.created_at"
+            class="article-time"
+          >{{ detail.created_at | formatDate }}</time>
+          <a
+            v-if="detail.user"
+            class="article-author"
+            :href="detail.user.html_url"
+            v-text="detail.user.login"
+          />
         </header>
-        <article class="markdown-body" v-html="detail.body_html" />
+        <article
+          class="markdown-body"
+          v-html="detail.body_html"
+        />
       </div>
-      <div class="toc-box" :style="{zIndex: shouldTocShow?'auto':'-1'}" v-if="needTOC">
+      <div
+        v-if="needTOC"
+        class="toc-box"
+        :style="{zIndex: shouldTocShow?'auto':'-1'}"
+      >
         <div class="markdown-toc toc" />
       </div>
     </div>
-    <div ref="comments" class="comments-container">
-      <Comments class="article-comments" :number="$route.params.id" v-if="detail && detail.body_html" />
+    <div
+      ref="comments"
+      class="comments-container"
+    >
+      <Comments
+        v-if="detail && detail.body_html"
+        class="article-comments"
+        :number="$route.params.id"
+      />
     </div>
-  </div>  
+  </div>
 </template>
 
 <script>
@@ -34,7 +65,7 @@ export default {
     Comments,
   },
   filters: {
-    formatDate: v => v && dateFormate({year: '2-digit'})(v)
+    formatDate: v => v && dateFormate({ year: '2-digit' })(v)
   },
   data () {
     return {
@@ -66,7 +97,7 @@ export default {
     this.observer = new IntersectionObserver(([entry]) => {
       this.shouldTocShow = !entry.isIntersecting // TODO: improve
     }, {
-      root: null, // relative to document viewport 
+      root: null, // relative to document viewport
       rootMargin: '0px', // margin around root. Values are similar to css property. Unitless values not allowed
       threshold: [0, 1.0], // visible amount of item shown in relation to root
       // delay: 100, // set a minimum delay between notifications
@@ -85,7 +116,7 @@ export default {
         const headers = document.querySelectorAll(`h${i}`)
         cnt += headers.length
         headers.forEach((header, index) => {
-          header['id'] = `h_${i}_${index}`
+          header.id = `h_${i}_${index}`
         })
       }
       return cnt
@@ -136,7 +167,7 @@ export default {
         color: rgb(60, 207, 152);
         cursor: pointer;
         &:hover {
-          color: rgb(255, 121, 144); 
+          color: rgb(255, 121, 144);
         }
       }
       .markdown-body {

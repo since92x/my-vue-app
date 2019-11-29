@@ -17,10 +17,9 @@ export default {
           // Using the history api to solve issue: back doesn't work
           // most browser don't update :target when the history api is used:
           // THIS IS A BUG FROM THE BROWSERS.
-          if (window.history.pushState && location.hash !== this.hash)
-            window.history.pushState('', '', this.hash);
+          if (window.history.pushState && location.hash !== this.hash) { window.history.pushState('', '', this.hash); }
 
-          var duration = 500; //ms
+          var duration = 500; // ms
           var clock = Date.now();
 
           // Get the top position of an element in the document

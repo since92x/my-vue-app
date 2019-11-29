@@ -2,27 +2,68 @@
   <div class="calendar">
     <div class="panel">
       <div class="indicator">
-        <span class="year" v-text="render.year" />
-        <span class="divide" v-text="'年'" />
-        <span class="month" v-text="render.month + 1" />
-        <span class="divide" v-text="'月'" />
+        <span
+          class="year"
+          v-text="render.year"
+        />
+        <span
+          class="divide"
+          v-text="'年'"
+        />
+        <span
+          class="month"
+          v-text="render.month + 1"
+        />
+        <span
+          class="divide"
+          v-text="'月'"
+        />
       </div>
       <div class="month-ctrl">
-        <span class="to-prev" v-text="'<'" @click.prevent.stop="changeMonth(-1)" />
-        <span class="to-today" v-text="'今天'" @click.prevent.stop="reset" />
-        <span class="to-next" v-text="'>'" @click.prevent.stop="changeMonth(+1)" />
+        <span
+          class="to-prev"
+          @click.prevent.stop="changeMonth(-1)"
+          v-text="'<'"
+        />
+        <span
+          class="to-today"
+          @click.prevent.stop="reset"
+          v-text="'今天'"
+        />
+        <span
+          class="to-next"
+          @click.prevent.stop="changeMonth(+1)"
+          v-text="'>'"
+        />
       </div>
     </div>
     <div class="body">
       <div class="week">
-        <div class="cell" v-for="(head, index) in heads" :key="index">
-          <span class="day" v-text="head" />
+        <div
+          v-for="(head, index) in heads"
+          :key="index"
+          class="cell"
+        >
+          <span
+            class="day"
+            v-text="head"
+          />
         </div>
       </div>
-      <div class="week" v-for="(week, wIndex) in weeks" :key="wIndex">
-        <div class="cell" v-for="(d, dIndex) in week" :key="dIndex" @click.prevent.stop="handleDateClick(d.ymd)">
-          <span class="day"
-            :class="d.isToday ? 'today' : d.dateType" 
+      <div
+        v-for="(week, wIndex) in weeks"
+        :key="wIndex"
+        class="week"
+      >
+        <div
+          v-for="(d, dIndex) in week"
+          :key="dIndex"
+          class="cell"
+          @click.prevent.stop="handleDateClick(d.ymd)"
+        >
+          <span
+            class="day"
+            :class="d.isToday ? 'today' : d.dateType"
             :data-date="d.ymd.join('/')"
             v-text="d.date"
           />
@@ -63,7 +104,7 @@ export default {
       const year = new Date().getFullYear()
       const month = new Date().getMonth()
       const date = new Date().getDate()
-      return { 
+      return {
         today: [year, month, date],
         year,
         month,
@@ -104,7 +145,7 @@ export default {
         .map((_, index) => {
           const d = new Date(startDate);
           const targetDate = new Date(d.setDate(d.getDate() + index));
-          const [year, month, date] =  [targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate()]
+          const [year, month, date] = [targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate()]
           const ymd = [year, month, date]
           const { year: ry, month: rm } = this.render
           return {
@@ -120,7 +161,7 @@ export default {
         }, [])
     },
     handleDateClick ([y, m, d]) {
-      this.$emit('change', {year: y, month: m+1, date: d})
+      this.$emit('change', { year: y, month: m+1, date: d })
     }
   }
 }

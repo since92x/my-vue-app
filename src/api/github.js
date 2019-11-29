@@ -4,7 +4,7 @@ import { githubBaseUrl } from './baseUrl.config'
 
 const DEFAULT_PARAMS = {
   client_id: github.CLIENT_ID,
-  client_secret: github.CLIENT_SECRET 
+  client_secret: github.CLIENT_SECRET
 }
 
 export const getLabels = () => {

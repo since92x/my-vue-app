@@ -1,11 +1,13 @@
 <template>
   <div class="root">
     <div class="container">
-      <div v-for="(item, index) in 30" class="item" 
-        v-text="index+1"
+      <div
+        v-for="(item, index) in 30"
         :key="index"
+        class="item"
         @mouseover="e => show(e, index)"
         @mouseout="$imageTip.close"
+        v-text="index+1"
       />
     </div>
     <!-- <div v-loading.fullscreen.lock="loading" /> -->

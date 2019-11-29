@@ -32,7 +32,7 @@ function handleDrag(el) {
   }
   function updatePosition(e) {
     if (state.isdragging) {
-      let touch = e.touches ? e.touches[0] : e;
+      const touch = e.touches ? e.touches[0] : e;
       el.style.left = `${state.position.x +
         touch.clientX -
         state.prevTouch.clientX}px`;
@@ -43,7 +43,7 @@ function handleDrag(el) {
   }
   function handleDown(e) {
     state.isdragging = true;
-    let touch = e.touches ? e.touches[0] : e;
+    const touch = e.touches ? e.touches[0] : e;
     state.prevTouch.clientX = touch.clientX;
     state.prevTouch.clientY = touch.clientY;
     state.position.x = el.offsetLeft;

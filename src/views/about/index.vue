@@ -1,6 +1,5 @@
 <template>
-  <div class="about-root">
-  </div>
+  <div class="about-root" />
 </template>
 
 <script>

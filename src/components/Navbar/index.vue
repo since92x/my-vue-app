@@ -1,12 +1,29 @@
 <template>
   <nav class="head-root">
-    <a class="nav-header" href="javascript:window.location.reload(true);" v-text="'（〃｀ 3′〃）'" />
-    <input type="checkbox" id="nav-check" />
-    <label for="nav-check" class="nav-btn">
+    <a
+      class="nav-header"
+      href="javascript:window.location.reload(true);"
+      v-text="'（〃｀ 3′〃）'"
+    />
+    <input
+      id="nav-check"
+      type="checkbox"
+    >
+    <label
+      for="nav-check"
+      class="nav-btn"
+    >
       <span /><span /><span />
     </label>
     <div class="nav-links">
-      <router-link class="nav-item" active-class="nav-active" v-for="(item, index) in items" :key="index" :to="item.to" v-text="item.name" />
+      <router-link
+        v-for="(item, index) in items"
+        :key="index"
+        class="nav-item"
+        active-class="nav-active"
+        :to="item.to"
+        v-text="item.name"
+      />
     </div>
   </nav>
 </template>

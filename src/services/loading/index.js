@@ -6,8 +6,7 @@ import Pacman from '@/components/painting/Pacman.vue';
 const LoadingConstructor = Vue.extend(Loader);
 
 const afterLeave = (instance, callback, speed = 300, once = false) => {
-  if (!instance || !callback)
-    throw new Error('instance & callback is required');
+  if (!instance || !callback) { throw new Error('instance & callback is required'); }
   let called = false;
   const afterLeaveCallback = function() {
     if (called) return;
@@ -50,14 +49,14 @@ LoadingConstructor.prototype.close = function() {
 };
 
 const addStyle = (options, parent, instance) => {
-  let maskStyle = {};
+  const maskStyle = {};
   if (options.fullscreen) {
     instance.originalPosition = getStyle(document.body, 'position');
     instance.originalOverflow = getStyle(document.body, 'overflow');
   } else if (options.body) {
     instance.originalPosition = getStyle(document.body, 'position');
     ['top', 'left'].forEach(property => {
-      let scroll = property === 'top' ? 'scrollTop' : 'scrollLeft';
+      const scroll = property === 'top' ? 'scrollTop' : 'scrollLeft';
       maskStyle[property] = options.target.getBoundingClientRect()[property] +
         document.body[scroll] +
         document.documentElement[scroll] +
@@ -75,11 +74,11 @@ const addStyle = (options, parent, instance) => {
 };
 
 const DEFAULT_OPTIONS = {
-    spinner: Pacman,
-    text: '',
-    background: 'rgba(0,0,0,0.5)',
-    customClass: '',
-    fullscreen: false,
+  spinner: Pacman,
+  text: '',
+  background: 'rgba(0,0,0,0.5)',
+  customClass: '',
+  fullscreen: false,
 }
 
 const Loading = (options = {}) => {
@@ -97,8 +96,8 @@ const Loading = (options = {}) => {
     return fullscreenLoading;
   }
 
-  let parent = options.body ? document.body : options.target;
-  let instance = new LoadingConstructor({
+  const parent = options.body ? document.body : options.target;
+  const instance = new LoadingConstructor({
     el: document.createElement('div'),
     components: {
       spinner: options.spinner

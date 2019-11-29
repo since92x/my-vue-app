@@ -3,7 +3,7 @@ import App from '@/App'
 import store from '@/store'
 import router from '@/router'
 // directive
-import SmoothScrollDirective from  '@/directives/smooth-scroll'
+import SmoothScrollDirective from '@/directives/smooth-scroll'
 import ClickoutsideDirective from '@/directives/click-away'
 import LoadingDirective from '@/directives/loading'
 import DragDirective from '@/directives/drag'
@@ -21,7 +21,7 @@ Vue.use(DragDirective)
 
 // service
 Vue.prototype.$loading = LoadingService
-Vue.prototype.$imageTip = ImageTip 
+Vue.prototype.$imageTip = ImageTip
 
 // config
 Vue.config.productionTip = false

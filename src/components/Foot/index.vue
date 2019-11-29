@@ -1,6 +1,11 @@
 <template>
   <footer>
-    <a class="emoj" href="https://github.com/since92x" target="_blank"  v-text="'（〃｀ 3′〃）'"  />
+    <a
+      class="emoj"
+      href="https://github.com/since92x"
+      target="_blank"
+      v-text="'（〃｀ 3′〃）'"
+    />
   </footer>
 </template>
 

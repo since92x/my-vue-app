@@ -5,8 +5,7 @@ import Pacman from '@/components/painting/Pacman.vue';
 
 const Loading = Vue.extend(Loader);
 const afterLeave = (instance, callback, speed = 300, once = false) => {
-  if (!instance || !callback)
-    throw new Error('instance & callback is required');
+  if (!instance || !callback) { throw new Error('instance & callback is required'); }
   let called = false;
   const afterLeaveCallback = function() {
     if (called) return;
@@ -86,11 +85,11 @@ const toggleLoading = (el, binding) => {
   }
 };
 const DEFAULT_OPTIONS = {
-    spinner: Pacman,
-    text: '',
-    background: 'rgba(0,0,0,0.5)',
-    customClass: '',
-    fullscreen: false,
+  spinner: Pacman,
+  text: '',
+  background: 'rgba(0,0,0,0.5)',
+  customClass: '',
+  fullscreen: false,
 }
 export default {
   install(Vue) {

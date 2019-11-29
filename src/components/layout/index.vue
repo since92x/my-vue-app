@@ -1,5 +1,8 @@
 <template>
-  <transition name="fade-transform" mode="out-in">
+  <transition
+    name="fade-transform"
+    mode="out-in"
+  >
     <div class="layout-root">
       <div class="head">
         <Navbar />

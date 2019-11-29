@@ -1,15 +1,33 @@
 <template>
-  <transition name="loading-fade" @after-leave="handleAfterLeave">
-    <div v-show="visible"
+  <transition
+    name="loading-fade"
+    @after-leave="handleAfterLeave"
+  >
+    <div
+      v-show="visible"
       :style="{ backgroundColor: background || '' }"
       :class="['loading-mask', customClass, { 'is-fullscreen': fullscreen }]"
     >
       <div class="loading-spinner">
         <spinner v-if="$options.components.spinner" />
-        <svg class="circular" viewBox="25 25 50 50" v-else>
-          <circle class="path" cx="50" cy="50" r="20" fill="none" />
+        <svg
+          v-else
+          class="circular"
+          viewBox="25 25 50 50"
+        >
+          <circle
+            class="path"
+            cx="50"
+            cy="50"
+            r="20"
+            fill="none"
+          />
         </svg>
-        <p v-if="text" v-text="text" class="loading-text" />
+        <p
+          v-if="text"
+          class="loading-text"
+          v-text="text"
+        />
       </div>
     </div>
   </transition>

@@ -1,39 +1,88 @@
 <template>
-  <div class="blog-root" v-loading.fullscreen.lock="loading">
+  <div
+    v-loading.fullscreen.lock="loading"
+    class="blog-root"
+  >
     <div class="aside">
       <div class="calendar">
         <Calendar />
       </div>
-      <ul class="tags" caption="tag">
-        <li class="tag-row" :class="{selected: !labels.filter(i => i.selected).length}" v-if="labels.length">
-          <div class="tag-cell" @click="handleTagUpdate('clear')" >
-            <span class="tag" style="background-color: #009688" v-text="'All'" />
+      <ul
+        class="tags"
+        caption="tag"
+      >
+        <li
+          v-if="labels.length"
+          class="tag-row"
+          :class="{selected: !labels.filter(i => i.selected).length}"
+        >
+          <div
+            class="tag-cell"
+            @click="handleTagUpdate('clear')"
+          >
+            <span
+              class="tag"
+              style="background-color: #009688"
+              v-text="'All'"
+            />
           </div>
         </li>
         <li
+          v-for="(label, index) in labels"
+          :key="index"
           class="tag-row"
-          v-for="(label, index) in labels" :key="index"
           :class="{selected: label.selected}"
           @click="handleTagUpdate(label)"
         >
           <div class="tag-cell">
-            <span class="tag" :style="{'background-color': '#'+label.color}" v-text="label.name" />
+            <span
+              class="tag"
+              :style="{'background-color': '#'+label.color}"
+              v-text="label.name"
+            />
           </div>
         </li>
       </ul>
     </div>
-    <transition-group name="fade" tag="ul" class="container">
-      <li class="list" v-for="item in items" :key="item.number">
-        <h3 v-text="item.title" @click="handleViewArticle(item.number)" />
+    <transition-group
+      name="fade"
+      tag="ul"
+      class="container"
+    >
+      <li
+        v-for="item in items"
+        :key="item.number"
+        class="list"
+      >
+        <h3
+          @click="handleViewArticle(item.number)"
+          v-text="item.title"
+        />
         <div class="cover">
           <transition name="slide">
-            <div class="preview" v-if="briefShow" v-html="item.body_html" />
+            <div
+              v-if="briefShow"
+              class="preview"
+              v-html="item.body_html"
+            />
           </transition>
         </div>
-        <a class="access" v-text="'阅读全文'" @click="handleViewArticle(item.number)" />
+        <a
+          class="access"
+          @click="handleViewArticle(item.number)"
+          v-text="'阅读全文'"
+        />
       </li>
-      <li key="more" class="more">
-        <a href="javascript:;" v-if="!hasLoadAll && items.length" v-text="'See more'" @click="loadMore"/>
+      <li
+        key="more"
+        class="more"
+      >
+        <a
+          v-if="!hasLoadAll && items.length"
+          href="javascript:;"
+          @click="loadMore"
+          v-text="'See more'"
+        />
       </li>
     </transition-group>
   </div>
@@ -70,7 +119,7 @@ export default {
   methods: {
     handleTagUpdate(tag) {
       if (tag === 'clear') {
-        this.labels = this.labels.map(label => ({ ...label, selected: false}))
+        this.labels = this.labels.map(label => ({ ...label, selected: false }))
       } else {
         this.labels = this.labels.map(label => ({ ...label, selected: label.name === tag.name ? !label.selected : false }))
       }
@@ -89,7 +138,7 @@ export default {
       }
       const labels = this.labels.filter(i => i.selected).map(i => i.name).join()
       getArticles({ page: this.page, per_page: this.per_page, labels }).then(res => {
-      this._isNotInit = true
+        this._isNotInit = true
         if (clear) {
           this.items = res
           return
@@ -214,7 +263,7 @@ export default {
     display: inline-block;
     vertical-align: top;
     width: 52%;
-    margin: 0 9%;
+    margin-left: 9%;
     @media (max-width: 992px) {
       display: block;
       width: 90%;
