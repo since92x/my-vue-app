@@ -12,8 +12,8 @@
     <noscript>
       <strong>We're sorry but vue-seed doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
+    <!-- Single Page Apps for GitHub Pages -->
     <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
       // https://github.com/rafrex/spa-github-pages
       // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
       // ----------------------------------------------------------------------
@@ -41,9 +41,16 @@
         }
       }(window.location))
     </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-153713308-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-153713308-1');
+    </script>
+    <!-- gitalk -->
     <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <!-- End Single Page Apps for GitHub Pages -->
     <div id="app"></div>
-    <!-- built files will be auto injected -->
   </body>
 </html>
