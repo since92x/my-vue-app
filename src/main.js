@@ -7,6 +7,7 @@ import SmoothScrollDirective from '@/directives/smooth-scroll'
 import ClickoutsideDirective from '@/directives/click-away'
 import LoadingDirective from '@/directives/loading'
 import DragDirective from '@/directives/drag'
+import TransferDom from '@/directives/transfer-dom'
 // service
 import LoadingService from '@/services/loading'
 import ImageTip from '@/services/imageTip'
@@ -18,6 +19,7 @@ Vue.use(SmoothScrollDirective)
 Vue.use(ClickoutsideDirective)
 Vue.use(LoadingDirective)
 Vue.use(DragDirective)
+Vue.use(TransferDom)
 
 // service
 Vue.prototype.$loading = LoadingService
