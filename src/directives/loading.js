@@ -91,54 +91,56 @@ const DEFAULT_OPTIONS = {
   customClass: '',
   fullscreen: false,
 }
-export default {
-  install(Vue) {
-    Vue.directive('loading', {
-      bind(el, binding, vnode) { // eslint-disable-line no-unused-vars
-        const text = el.getAttribute('loading-text');
-        const spinner = el.getAttribute('loading-component');
-        const background = el.getAttribute('loading-background');
-        const customClass = el.getAttribute('loading-custom-class');
-        const modifiers= binding.modifiers;
-        const vm = vnode.context;
-        const mask = new Loading({
-          el: document.createElement('div'),
-          components: {
-            spinner: vm && vm[spinner] || spinner || DEFAULT_OPTIONS.spinner,
-          },
-          data: {
-            text: vm && vm[text] || text || DEFAULT_OPTIONS.text,
-            background: vm && vm[background] || background || DEFAULT_OPTIONS.background,
-            customClass: vm && vm[customClass] || customClass || DEFAULT_OPTIONS.customClass,
-            fullscreen: !!modifiers.fullscreen || DEFAULT_OPTIONS.fullscreen,
-          },
-        });
-        el.instance = mask;
-        el.mask = mask.$el;
-        el.maskStyle = {};
-        if (binding.value) {
-          toggleLoading(el, binding);
-        }
+export const LoadingDirective = {
+  bind(el, binding, vnode) { // eslint-disable-line no-unused-vars
+    const text = el.getAttribute('loading-text');
+    const spinner = el.getAttribute('loading-component');
+    const background = el.getAttribute('loading-background');
+    const customClass = el.getAttribute('loading-custom-class');
+    const modifiers= binding.modifiers;
+    const vm = vnode.context;
+    const mask = new Loading({
+      el: document.createElement('div'),
+      components: {
+        spinner: vm && vm[spinner] || spinner || DEFAULT_OPTIONS.spinner,
       },
-
-      update(el, binding) {
-        el.instance.setText(el.getAttribute('loading-text'));
-        if (binding.oldValue !== binding.value) {
-          toggleLoading(el, binding);
-        }
-      },
-
-      unbind(el, binding) {
-        if (el.domInserted) {
-          if (el.mask && el.mask.parentNode) {
-            el.mask.parentNode.removeChild(el.mask);
-          }
-          toggleLoading(el, {
-            value: false,
-            modifiers: binding,
-          });
-        }
+      data: {
+        text: vm && vm[text] || text || DEFAULT_OPTIONS.text,
+        background: vm && vm[background] || background || DEFAULT_OPTIONS.background,
+        customClass: vm && vm[customClass] || customClass || DEFAULT_OPTIONS.customClass,
+        fullscreen: !!modifiers.fullscreen || DEFAULT_OPTIONS.fullscreen,
       },
     });
+    el.instance = mask;
+    el.mask = mask.$el;
+    el.maskStyle = {};
+    if (binding.value) {
+      toggleLoading(el, binding);
+    }
+  },
+
+  update(el, binding) {
+    el.instance.setText(el.getAttribute('loading-text'));
+    if (binding.oldValue !== binding.value) {
+      toggleLoading(el, binding);
+    }
+  },
+
+  unbind(el, binding) {
+    if (el.domInserted) {
+      if (el.mask && el.mask.parentNode) {
+        el.mask.parentNode.removeChild(el.mask);
+      }
+      toggleLoading(el, {
+        value: false,
+        modifiers: binding,
+      });
+    }
+  },
+};
+
+export default {
+  install(Vue) {
+    Vue.directive('loading', LoadingDirective);
   },
 };

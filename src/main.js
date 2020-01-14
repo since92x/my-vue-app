@@ -3,11 +3,11 @@ import App from '@/App'
 import store from '@/store'
 import router from '@/router'
 // directive
-import SmoothScrollDirective from '@/directives/smooth-scroll'
 import ClickoutsideDirective from '@/directives/click-away'
 import LoadingDirective from '@/directives/loading'
 import DragDirective from '@/directives/drag'
 import TransferDom from '@/directives/transfer-dom'
+import InView from '@/directives/inview'
 // service
 import LoadingService from '@/services/loading'
 import ImageTip from '@/services/imageTip'
@@ -15,11 +15,11 @@ import ImageTip from '@/services/imageTip'
 import '@/styles/base.scss'
 
 // directive
-Vue.use(SmoothScrollDirective)
 Vue.use(ClickoutsideDirective)
 Vue.use(LoadingDirective)
 Vue.use(DragDirective)
 Vue.use(TransferDom)
+Vue.use(InView)
 
 // service
 Vue.prototype.$loading = LoadingService

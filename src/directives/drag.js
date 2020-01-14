@@ -1,3 +1,5 @@
+// TODO: need improve
+
 function handleDrag(el) {
   if (window.getComputedStyle(el).getPropertyValue('position') !== 'fixed') {
     el.style.position = 'fixed'
@@ -67,12 +69,15 @@ function handleDrag(el) {
   addListener(el, ['mousemove', 'touchmove'], handleMove);
   addListener(el, ['mouseup', 'touchend'], handleEnd);
 }
+
+export const DragDirective = {
+  inserted(el) {
+    handleDrag(el);
+  },
+}
+
 export default {
   install(Vue) {
-    Vue.directive('drag', {
-      inserted(el) {
-        handleDrag(el);
-      },
-    });
+    Vue.directive('drag', DragDirective);
   },
 };

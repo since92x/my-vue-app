@@ -17,7 +17,7 @@ function getTarget(node) {
   return node instanceof window.Node ? node : document.querySelector(node);
 }
 
-const transferDom = {
+export const TransferDomDirective = {
   inserted(el, { value }, vnode) {
     if (el.dataset && el.dataset.transfer !== "true") return false;
     el.className = el.className
@@ -88,6 +88,6 @@ const transferDom = {
 
 export default {
   install(Vue) {
-    Vue.directive('transfer-dom', transferDom)
+    Vue.directive('transfer-dom', TransferDomDirective)
   }
 }

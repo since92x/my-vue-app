@@ -1,3 +1,4 @@
+<!-- Thanks to: https://github.com/ElemeFE/element/blob/dev/packages/loading/src/loading.vue -->
 <template>
   <transition
     name="loading-fade"
